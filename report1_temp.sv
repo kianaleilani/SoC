@@ -7,27 +7,14 @@ module rotate_seg(
     output logic [3:0] an    // digit enable (active low)
 );
 
-    // Clock divider for slower tick
-   logic [23:0] clkdiv;
-    logic tick;
-
-  always_ff @(posedge clk or posedge reset) begin
-        if (reset)
-            clkdiv <= 0;
-        else
-            clkdiv <= clkdiv + 1;
-    end
-
-    assign tick = (clkdiv == 0);  // generate tick when divider wraps
-
-    // State counter (0–7 for the 8 positions shown in Figure 4.13)
-    logic [2:0] state;
-
+    // Update state machine
     always_ff @(posedge clk or posedge reset) begin
         if (reset)
-            state <= 0;
-        else if (tick)
-            state <= state + 1;
+            state <= 3'd0;
+        else if (en && tick) begin
+            if (cw) state <= state + 1;   // clockwise
+            else    state <= state - 1;   // counterclockwise
+        end
     end
 
     // Segment & anode pattern lookup
