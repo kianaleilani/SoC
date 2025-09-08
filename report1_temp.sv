@@ -7,24 +7,6 @@ module rotate_seg(
     output logic [3:0] an    // digit enable (active low)
 );
 
-      // Internal counter for stepping
-    logic [25:0] clkdiv;   // slows clock for visible updates
-    logic [2:0]  cw;       // step state (0..7)
-
-    // Clock divider
-    always_ff @(posedge clk or posedge rst) begin
-        if (rst) begin
-            clkdiv <= 0;
-            cw     <= 0;
-        end else begin
-            clkdiv <= clkdiv + 1;
-            if (clkdiv == 26'd50_000_000) begin  // ~1 Hz update for 50MHz input clock
-                clkdiv <= 0;
-                cw <= cw + 1; // cycle through 0–7
-            end
-        end
-    end
-
     // Segment & anode pattern lookup
     always_comb begin
         seg = 7'b0000000; // default off
