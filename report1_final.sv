@@ -1,68 +1,59 @@
-module rotate_seg(
+// Code your design here
+module rotate_pattern(
     input  logic clk,        // main clock
     input  logic reset, // reset
-  	input logic en = 0,
+  	input logic en,
   	input logic cw,
     output logic [6:0] seg,  // 7-segment LEDs (abcdefg)
-    output logic [3:0] an    // digit enable (active low)
+  output logic [6:0] an    // digit enable (active low)
 );
 
-    // Clock divider for slower tick
-   logic [23:0] clkdiv;
-    logic tick;
 
-  always_ff @(posedge clk or posedge reset) begin
-        if (reset)
-            clkdiv <= 0;
-        else
-            clkdiv <= clkdiv + 1;
-    end
-
-    assign tick = (clkdiv == 0);  // generate tick when divider wraps
-
-    // State counter (0–7 for the 8 positions shown in Figure 4.13)
-    logic [2:0] state;
+    // State counter
+  logic [2:0] state;
 
     always_ff @(posedge clk or posedge reset) begin
         if (reset)
             state <= 0;
-        else if (tick)
+        else
             state <= state + 1;
     end
 
-    // Segment & anode pattern lookup
     always_comb begin
-        seg = 7'b0000000; // default off
-        an  = 4'b0000;    // all digits off
+        //seg = 7'b0000000; // default
+        //an  = 7'b0000000;    // all digits off
+      if(en)
+        if(cw)
+          case(state) // iterate through each step/digit
+
+                  3'd0: begin seg = 7'b0011100; an = 7'b0111111; end 
+                  3'd1: begin seg = 7'b0011100; an = 7'b1011111; end 
+                  3'd2: begin seg = 7'b0011100; an = 7'b1101111; end 
+                  3'd3: begin seg = 7'b0011100; an = 7'b1110111; end 
+
+                  3'd4: begin seg = 7'b1100010; an = 7'b1110111; end 
+                  3'd5: begin seg = 7'b1100010; an = 7'b1101111; end 
+                  3'd6: begin seg = 7'b1100010; an = 7'b1011111; end 
+                  3'd7: begin seg = 7'b1100010; an = 7'b0111111; end 
+
+          endcase
       
-        case(cw)
-              // Top row (rightward rotation)
-              3'd0: begin seg = 7'b1100011; an = 4'b1000; end 
-              3'd1: begin seg = 7'b1100011; an = 4'b0100; end // digit1
-              3'd2: begin seg = 7'b1100011; an = 4'b0010; end // digit2
-              3'd3: begin seg = 7'b1100011; an = 4'b0001; end // digit3
+      if(~cw)
+          case(state) // iterate through each step/digit
 
-              // Bottom row (leftward rotation back)
-              3'd4: begin seg = 7'b0011101; an = 4'b0001; end // "segment 
-              3'd5: begin seg = 7'b0011101; an = 4'b0010; end // digit2
-              3'd6: begin seg = 7'b0011101; an = 4'b0100; end // digit1
-              3'd7: begin seg = 7'b0011101; an = 4'b1000; end // digit0
-        endcase
+                  3'd0: begin seg = 7'b0011100; an = 7'b0111111; end 
+                  3'd1: begin seg = 7'b1100010; an = 7'b0111111; end 
+                  3'd2: begin seg = 7'b1100010; an = 7'b1011111; end 
+                  3'd3: begin seg = 7'b1100010; an = 7'b1101111; end 
 
-        case(~cw)
-                      // Top row (rightward rotation)
-              3'd0: begin seg = 7'b1100011; an = 4'b1000; end 
-              3'd1: begin seg = 7'b0011101; an = 4'b1000; end // digit1
-              3'd2: begin seg = 7'b0011101; an = 4'b0100; end // digit2
-              3'd3: begin seg = 7'b0011101; an = 4'b0010; end // digit3
+                  3'd4: begin seg = 7'b1100010; an = 7'b1110111; end 
+                  3'd5: begin seg = 7'b1100011; an = 7'b1110111; end 
+                  3'd6: begin seg = 7'b1100011; an = 7'b1101111; end 
+                  3'd7: begin seg = 7'b1100011; an = 7'b1011111; end 
 
-              // Bottom row (leftward rotation back)
-              3'd4: begin seg = 7'b0011101; an = 4'b0001; end // "segment 
-              3'd5: begin seg = 7'b1100011; an = 4'b0001; end // digit2
-              3'd6: begin seg = 7'b1100011; an = 4'b0010; end // digit1
-              3'd7: begin seg = 7'b1100011; an = 4'b0100; end // digit0
-        endcase
-      
+          endcase
+          
     end
 
 endmodule
+
