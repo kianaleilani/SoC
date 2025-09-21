@@ -1,85 +1,73 @@
-module top_reaction_timer (
-    input  logic clk,
-    input  logic rst,      // BTNU -> reset
-    input  logic btnc,     // BTNC -> start/stop
-    output logic [15:0] led,
-    output logic [7:0]  an,
-    output logic [6:0]  seg
-);
+`timescale 1ns/1ps
 
-    // FSM states
-    typedef enum logic [2:0] {
-        S_IDLE,
-        S_WAIT,
-        S_REACT,
-        S_DONE
-    } state_t;
+module tb_reaction_timer;
 
-    state_t state, next_state;
+    // DUT ports
+    logic clk;
+    logic reset;
+    logic BTNC, BTNU;
+    logic [7:0] AN;
+    logic [6:0] seg;
+    logic [15:0] LED;
 
-    // LFSR for random delay
-    logic [7:0] lfsr;
-    logic lfsr_feedback;
-    assign lfsr_feedback = lfsr[7] ^ lfsr[5] ^ lfsr[4] ^ lfsr[3];
+    // Instantiate DUT
+    top_reaction_timer dut (
+        .clk   (clk),
+        .reset (reset),
+        .BTNC  (BTNC),
+        .BTNU  (BTNU),
+        .AN    (AN),
+        .seg   (seg),
+        .LED   (LED)
+    );
 
-    always_ff @(posedge clk or posedge rst) begin
-        if (rst)
-            lfsr <= 8'h1;
-        else
-            lfsr <= {lfsr[6:0], lfsr_feedback};
-    end
+    // Clock generator (100 MHz -> 10 ns period)
+    initial clk = 0;
+    always #5 clk = ~clk;
 
-    // Simple LED + 7-seg driver logic
-    logic [31:0] counter;
-    always_ff @(posedge clk or posedge rst) begin
-        if (rst) begin
-            state <= S_IDLE;
-            counter <= 0;
-        end else begin
-            state <= next_state;
-            counter <= counter + 1;
-        end
-    end
+    // Simulation shortened LFSR scaling
+    localparam SIM_DELAY_SCALE = 10_000; // ~100us per step for sim
 
-    // FSM transition
-    always_comb begin
-        next_state = state;
-        case (state)
-            S_IDLE: if (btnc) next_state = S_WAIT;
-            S_WAIT: if (counter[15:0] == {8'h00, lfsr}) next_state = S_REACT;
-            S_REACT: if (btnc) next_state = S_DONE;
-            S_DONE: if (rst) next_state = S_IDLE;
-        endcase
-    end
+    // Stimulus
+    initial begin
+        $display("=== Reaction Timer Testbench Start ===");
+        reset = 1; BTNC = 0; BTNU = 0;
+        #100; 
+        reset = 0;
 
-    // Display logic
-    always_comb begin
-        led = 16'b0;
-        an  = 8'b11111111;
-        seg = 7'b1111111; // blank
-        case (state)
-            S_IDLE: begin
-                // Show "ALOHA" rotating (simplified to 'A' on digit0 for demo)
-                an = 8'b11111110;
-                seg = 7'b0001000; // A
-            end
-            S_WAIT: begin
-                // Blank until LEDs flash
-                an = 8'b11111111;
-                seg = 7'b1111111;
-            end
-            S_REACT: begin
-                led = 16'hFFFF; // all LEDs ON
-                an = 8'b11111110;
-                seg = 7'b0000110; // "E" = react indicator
-            end
-            S_DONE: begin
-                // Freeze LEDs
-                led = 16'hFFFF;
-                an = 8'b11111110;
-                seg = 7'b1000111; // "F" = done
-            end
-        endcase
+        // Check welcome screen "ALOHA"
+        #100_000;
+        $display("[TB] DUT should display ALOHA");
+
+        // Start reaction timer by pressing BTNC
+        $display("[TB] Pressing BTNC to start reaction trial");
+        BTNC = 1; #50; BTNC = 0;
+
+        // Wait for LEDs to turn on after random delay
+        wait (LED != 16'h0000);
+        $display("[TB] LEDs turned ON -> Now waiting to press BTNC");
+
+        // Simulate reaction after ~200us
+        #200_000;
+        BTNC = 1; #50; BTNC = 0;
+        $display("[TB] BTNC pressed after LEDs ON -> Reaction time should display");
+
+        // Hold for observation
+        #500_000;
+
+        // Case: Early press before LEDs turn on
+        $display("[TB] Testing EARLY press -> should display 9999");
+        BTNC = 1; #50; BTNC = 0;  // pressed early
+        #100_000;
+
+        // Reset with BTNU
+        $display("[TB] Pressing BTNU for reset");
+        BTNU = 1; #50; BTNU = 0;
+        #100_000;
+
+        $display("=== Reaction Timer Testbench Done ===");
+        $finish;
     end
 
 endmodule
+
