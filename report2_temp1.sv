@@ -22,6 +22,9 @@ module top_reaction_timer(
     logic [31:0] counter;
     logic [31:0] reaction_time;
 
+    // Early stop flag
+    logic early_stop;
+
     // Random delay (2 to 15 seconds)
     logic [15:0] lfsr = 16'hACE1;
     logic [31:0] random_delay;
@@ -39,8 +42,10 @@ module top_reaction_timer(
             state <= S_IDLE;
             counter <= 0;
             reaction_time <= 0;
+            early_stop <= 0;
         end else begin
             state <= next_state;
+
             // Counter increments in WAIT_RANDOM and REACT
             if (state == S_WAIT_RANDOM || state == S_REACT)
                 counter <= counter + 1;
@@ -50,6 +55,10 @@ module top_reaction_timer(
             // Capture reaction time when stop pressed during REACT
             if (state == S_REACT && BTNC)
                 reaction_time <= counter / 100_000; // convert to ms
+
+            // Detect early stop
+            if ((state == S_WAIT_RANDOM) && BTNC)
+                early_stop <= 1;
         end
     end
 
@@ -58,9 +67,10 @@ module top_reaction_timer(
         next_state = state;
         case(state)
             S_IDLE:        if (BTNC) next_state = S_WAIT_RANDOM;
-            S_WAIT_RANDOM: 
-                if (BTNC) next_state = S_DISPLAY;       // early stop before light
+            S_WAIT_RANDOM: begin
+                if (early_stop) next_state = S_DISPLAY;
                 else if (counter >= random_delay) next_state = S_LIGHT_ON;
+            end
             S_LIGHT_ON:    next_state = S_REACT;
             S_REACT:       if (BTNC || counter >= 100_000_000) next_state = S_DISPLAY; // 1 sec max
             S_DISPLAY:     if (BTNU) next_state = S_IDLE;
@@ -69,9 +79,12 @@ module top_reaction_timer(
 
     // LED output
     always_comb begin
-        LED = 16'b0;
-        if (state == S_LIGHT_ON || state == S_REACT)
-            LED = 16'hFFFF; // all LEDs on
+        if (early_stop)
+            LED = 16'b0;  // LEDs off if early stop
+        else if (state == S_LIGHT_ON || state == S_REACT)
+            LED = 16'hFFFF; // LEDs on
+        else
+            LED = 16'b0;
     end
 
     // 7-segment scanning (~1kHz)
@@ -94,27 +107,32 @@ module top_reaction_timer(
     // 7-segment display digits
     logic [3:0] digit;
     always_comb begin
-        case(state)
-            S_IDLE: begin
-                // Display "HI"
-                case(an_idx)
-                    3'd0: digit = 4'h5; // H
-                    3'd1: digit = 4'h5; // I
-                    default: digit = 4'hF; // blank
-                endcase
-            end
-            S_WAIT_RANDOM, S_LIGHT_ON, S_REACT, S_DISPLAY: begin
-                // Show reaction time in ms (up to 9999)
-                case(an_idx)
-                    3'd0: digit = reaction_time % 10;
-                    3'd1: digit = (reaction_time / 10) % 10;
-                    3'd2: digit = (reaction_time / 100) % 10;
-                    3'd3: digit = (reaction_time / 1000) % 10;
-                    default: digit = 4'hF;
-                endcase
-            end
-            default: digit = 4'hF;
-        endcase
+        if (state == S_IDLE) begin
+            // Display "HI"
+            case(an_idx)
+                3'd0: digit = 4'h5; // H
+                3'd1: digit = 4'h5; // I
+                default: digit = 4'hF;
+            endcase
+        end else if (early_stop) begin
+            // Display 9999 on early stop
+            case(an_idx)
+                3'd0: digit = 4'd9;
+                3'd1: digit = 4'd9;
+                3'd2: digit = 4'd9;
+                3'd3: digit = 4'd9;
+                default: digit = 4'hF;
+            endcase
+        end else begin
+            // Display reaction_time in ms (up to 9999)
+            case(an_idx)
+                3'd0: digit = reaction_time % 10;
+                3'd1: digit = (reaction_time / 10) % 10;
+                3'd2: digit = (reaction_time / 100) % 10;
+                3'd3: digit = (reaction_time / 1000) % 10;
+                default: digit = 4'hF;
+            endcase
+        end
     end
 
     // 7-segment cathodes
@@ -126,12 +144,8 @@ module top_reaction_timer(
             4'd2: seg = 8'b10100100;
             4'd3: seg = 8'b10110000;
             4'd4: seg = 8'b10011001;
-            4'd5: seg = 8'b10010010;
-            4'd6: seg = 8'b10000010;
-            4'd7: seg = 8'b11111000;
-            4'd8: seg = 8'b10000000;
+            4'd5: seg = 8'b10001001; // H/I
             4'd9: seg = 8'b10010000;
-            4'h5: seg = 8'b10001001; // H/I representation
             4'hF: seg = 8'b11111111; // blank
             default: seg = 8'b11111111;
         endcase
