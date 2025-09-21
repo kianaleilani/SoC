@@ -1,73 +1,100 @@
 `timescale 1ns/1ps
 
+`timescale 1ns/1ps
+
 module tb_reaction_timer;
 
-    // DUT ports
-    logic clk;
-    logic reset;
-    logic BTNC, BTNU;
-    logic [7:0] AN;
-    logic [6:0] seg;
+    logic CLK100MHZ;
+    logic BTNC;
+    logic BTNU;
     logic [15:0] LED;
+    logic [7:0]  AN;
+    logic CA, CB, CC, CD, CE, CF, CG, DP;
 
     // Instantiate DUT
     top_reaction_timer dut (
-        .clk   (clk),
-        .reset (reset),
-        .BTNC  (BTNC),
-        .BTNU  (BTNU),
-        .AN    (AN),
-        .seg   (seg),
-        .LED   (LED)
+        .CLK100MHZ(CLK100MHZ),
+        .BTNC(BTNC),
+        .BTNU(BTNU),
+        .LED(LED),
+        .AN(AN),
+        .CA(CA), .CB(CB), .CC(CC), .CD(CD), .CE(CE), .CF(CF), .CG(CG), .DP(DP)
     );
 
-    // Clock generator (100 MHz -> 10 ns period)
-    initial clk = 0;
-    always #5 clk = ~clk;
+    // Clock generation
+    initial CLK100MHZ = 0;
+    always #5 CLK100MHZ = ~CLK100MHZ; // 100 MHz
 
-    // Simulation shortened LFSR scaling
-    localparam SIM_DELAY_SCALE = 10_000; // ~100us per step for sim
+    // Helper tasks
+    task press_btnc(input integer cycles);
+        begin
+            BTNC = 1;
+            repeat(cycles) @(posedge CLK100MHZ);
+            BTNC = 0;
+        end
+    endtask
 
-    // Stimulus
+    task press_btnu(input integer cycles);
+        begin
+            BTNU = 1;
+            repeat(cycles) @(posedge CLK100MHZ);
+            BTNU = 0;
+        end
+    endtask
+
+    // Test sequence
     initial begin
-        $display("=== Reaction Timer Testbench Start ===");
-        reset = 1; BTNC = 0; BTNU = 0;
-        #100; 
-        reset = 0;
+        BTNC = 0;
+        BTNU = 0;
 
-        // Check welcome screen "ALOHA"
-        #100_000;
-        $display("[TB] DUT should display ALOHA");
+        $display("=== TEST START ===");
 
-        // Start reaction timer by pressing BTNC
-        $display("[TB] Pressing BTNC to start reaction trial");
-        BTNC = 1; #50; BTNC = 0;
+        // Check IDLE displays ALOHA
+        @(posedge CLK100MHZ);
+        if (AN != 8'b11111000) $display("ERROR: AN not correct in S_IDLE");
+        $display("S_IDLE: 'ALOHA' should be displayed");
 
-        // Wait for LEDs to turn on after random delay
-        wait (LED != 16'h0000);
-        $display("[TB] LEDs turned ON -> Now waiting to press BTNC");
+        // Press BTNC to start reaction timer
+        press_btnc(2);
+        $display("Pressed BTNC: timer started (random delay begins)");
 
-        // Simulate reaction after ~200us
-        #200_000;
-        BTNC = 1; #50; BTNC = 0;
-        $display("[TB] BTNC pressed after LEDs ON -> Reaction time should display");
+        // Simulate some cycles before LEDs turn on
+        repeat(50) @(posedge CLK100MHZ);
 
-        // Hold for observation
-        #500_000;
+        // Press BTNC early (before LEDs)
+        press_btnc(2);
+        $display("Early BTNC press: LEDs off, should go to 9999");
+        @(posedge CLK100MHZ);
+        $display("Digit displayed: %b", {CA, CB, CC, CD, CE, CF, CG, DP});
 
-        // Case: Early press before LEDs turn on
-        $display("[TB] Testing EARLY press -> should display 9999");
-        BTNC = 1; #50; BTNC = 0;  // pressed early
-        #100_000;
+        // Reset DUT
+        press_btnu(2);
+        $display("Pressed BTNU: reset to S_IDLE");
 
-        // Reset with BTNU
-        $display("[TB] Pressing BTNU for reset");
-        BTNU = 1; #50; BTNU = 0;
-        #100_000;
+        // Normal flow: start timer
+        press_btnc(2);
+        $display("Pressed BTNC: start normal reaction timer");
 
-        $display("=== Reaction Timer Testbench Done ===");
-        $finish;
+        // Wait until LEDs turn on (simulate random delay)
+        repeat(500) @(posedge CLK100MHZ); // adjust cycles to ensure LIGHT_ON occurs
+
+        $display("LEDs should be ON now for REACT");
+        @(posedge CLK100MHZ);
+        if (LED != 16'hFFFF) $display("ERROR: LEDs not on during REACT");
+
+        // Press BTNC to stop timer
+        press_btnc(2);
+        $display("Pressed BTNC during REACT: timer should freeze");
+
+        @(posedge CLK100MHZ);
+        $display("Reaction time captured: %h", dut.reaction_time);
+
+        // Press BTNU to reset FSM
+        press_btnu(2);
+        $display("Pressed BTNU: FSM reset to S_IDLE");
+
+        $display("=== TEST END ===");
+        $stop;
     end
 
 endmodule
-
