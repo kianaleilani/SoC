@@ -1,4 +1,4 @@
-module top_reaction_timer(
+odule top_reaction_timer(
     input  logic CLK100MHZ,
     input  logic BTNC,  // start/stop
     input  logic BTNU,  // clear
@@ -110,8 +110,11 @@ module top_reaction_timer(
         if (state == S_IDLE) begin
             // Display "HI"
             case(an_idx)
-                3'd0: digit = 4'h5; // H
-                3'd1: digit = 4'h5; // I
+                3'd0: digit = 4'h1; // A
+                3'd1: digit = 4'h4; // L
+                3'd2: digit = 4'h3; // O
+                3'd3: digit = 4'h2; // H
+                3'd4: digit = 4'h1; // A
                 default: digit = 4'hF;
             endcase
         end else if (early_stop) begin
@@ -140,11 +143,11 @@ module top_reaction_timer(
     always_comb begin
         case(digit)
             4'd0: seg = 8'b11000000;
-            4'd1: seg = 8'b11111001;
-            4'd2: seg = 8'b10100100;
-            4'd3: seg = 8'b10110000;
-            4'd4: seg = 8'b10011001;
-            4'd5: seg = 8'b10001001; // H/I
+            4'd1: seg = 8'b10001000; // A
+            4'd2: seg = 8'b11000111; // L
+            4'd3: seg = 8'b11000000; // O
+            4'd4: seg = 8'b10001001; // H
+            4'd5: seg = 8'b11111001; // I
             4'd9: seg = 8'b10010000;
             4'hF: seg = 8'b11111111; // blank
             default: seg = 8'b11111111;
