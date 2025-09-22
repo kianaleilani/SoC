@@ -1,4 +1,4 @@
-odule top_reaction_timer(
+module top_reaction_timer(
     input  logic CLK100MHZ,
     input  logic BTNC,  // start/stop
     input  logic BTNU,  // clear
