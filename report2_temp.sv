@@ -7,13 +7,13 @@ module top_reaction_timer(
     output logic CA, CB, CC, CD, CE, CF, CG, DP // 7-seg cathodes
 );
 
-    // FSM States
+    // States for different cases
     typedef enum logic [2:0] {
-        S_IDLE,
-        S_WAIT_RANDOM,
-        S_LIGHT_ON,
-        S_REACT,
-        S_DISPLAY
+        S_IDLE, // ALOHA case
+        S_WAIT_RANDOM, // once BNTC is pushed, random time will start
+        S_LIGHT_ON, 
+        S_REACT, // BNTC pressed when LED are on to stop timer
+        S_DISPLAY 
     } state_t;
 
     state_t state, next_state;
@@ -43,13 +43,13 @@ module top_reaction_timer(
             clk_div <= clk_div + 1;
     end
 
-    // FSM Sequential
+    // Begins game 
     always_ff @(posedge CLK100MHZ) begin
       if (BTNU) begin
             state <= S_IDLE;
             counter <= 0;
             reaction_time <= 0;
-       end else begin
+      end else if (BTNC) begin // might need to change back to end else
             state <= next_state;
             if (state == S_WAIT_RANDOM || state == S_REACT)
                 counter <= counter + 1;
@@ -61,48 +61,47 @@ module top_reaction_timer(
         end
     end
 
-    // FSM Next-State Logic
+    // Cases steps
     always_comb begin
         next_state = state;
         case (state)
-          S_IDLE:        if (BTNU) next_state = S_WAIT_RANDOM;
-            S_WAIT_RANDOM: if (counter > {lfsr, 10'd0}) next_state = S_LIGHT_ON;
-            S_LIGHT_ON:    next_state = S_REACT;
+            S_IDLE:        if (BTNU) next_state = S_WAIT_RANDOM; // might need to change to BNTC so game can start
+            S_WAIT_RANDOM: if (counter > {lfsr, 10'd0}) next_state = S_LIGHT_ON; // Random time then LED on
+            S_LIGHT_ON:    next_state = S_REACT; 
             S_REACT:       if (BTNC) next_state = S_DISPLAY;
-          S_DISPLAY:     if (BTNU) next_state = S_IDLE;
+            S_DISPLAY:     if (BTNU) next_state = S_IDLE; // Back to beginning
         endcase
     end
 
-    // LED Output
+    // LED 
     always_comb begin
         LED = 16'b0;
         if (state == S_LIGHT_ON || state == S_REACT)
-            LED = 16'hFFFF; // all LEDs on during reaction timer
+            LED = 16'hFFFF; // all LEDs on
     end
 
     // 7-segment anode logic
     always_comb begin
-        AN = 8'b11111111;        // default all off
+        AN = 8'b11111111;        // all off
         if (state == S_IDLE || state == S_REACT || state == S_DISPLAY)
-            AN[an_idx] = 0;      // active low
+            AN[an_idx] = 0;      
     end
 
-    // Display logic
+    // Display
     always_comb begin
         case (state)
             S_IDLE: begin
-              // Display "ALOHA" across 5 digits
               case (an_idx)
-                  3'd0: digit = 4'h1; // "A"
-                  3'd1: digit = 4'h2; // "L"
-                  3'd2: digit = 4'h3; // "O"
-                  3'd3: digit = 4'h4; // "H"
-                  3'd4: digit = 4'h1; // "A" again
-                  default: digit = 4'hF; // blank
+                  3'd0: digit = 4'h1; // A
+                  3'd1: digit = 4'h2; // L
+                  3'd2: digit = 4'h3; // O
+                  3'd3: digit = 4'h4; // H
+                  3'd4: digit = 4'h1; // A
+                  default: digit = 4'hF; 
               endcase
             end
             S_WAIT_RANDOM, S_LIGHT_ON, S_REACT, S_DISPLAY: begin
-                // Display reaction_time (hex) on 4 digits
+                // reaction_time
                 case (an_idx)
                     3'd0: digit = reaction_time[3:0];
                     3'd1: digit = reaction_time[7:4];
