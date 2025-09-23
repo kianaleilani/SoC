@@ -33,9 +33,12 @@ module top_reaction_timer(
         // LFSR for randomness
         lfsr <= {lfsr[14:0], lfsr[15] ^ lfsr[13] ^ lfsr[12] ^ lfsr[10]};
         // random delay in clock cycles (1ms resolution)
-        random_delay <= (2_000 + (lfsr % 13_000)) * 100_000; // 2-15 sec
+        assign random_delay <= (2_000 + (lfsr % 13_000)) * 100_000; // 2-15 sec
     end
 
+    // NEED TO MAKE A COUNT DOWN TIMER SO WHEN THE DELAY HITS 0 THEN TURN LED ON 
+    // NEED A COUNT UP TO GET THE REACTION TIME
+    
     // FSM sequential
     always_ff @(posedge CLK100MHZ) begin
         if (BTNU) begin
@@ -98,7 +101,7 @@ module top_reaction_timer(
             clk_div <= clk_div + 1;
     end
 
-    // Anode control
+    // Anode control 
     always_comb begin
         AN = 8'b11111111;
         AN[an_idx] = 0; // active low
@@ -117,7 +120,8 @@ module top_reaction_timer(
                 3'd4: digit = 4'h1; // A
                 default: digit = 4'hF;
             endcase
-        end else if (early_stop) begin
+        end 
+        else if (early_stop) begin
             // Display 9999 on early stop
             case(an_idx)
                 3'd0: digit = 4'd9;
@@ -139,6 +143,8 @@ module top_reaction_timer(
     end
 
     // 7-segment cathodes
+    // move the aloha into the S_IDLE state 
+    // make letter a parameter - preset everything so then you can 
     logic [7:0] seg;
     always_comb begin
         case(digit)
