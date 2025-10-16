@@ -16,7 +16,7 @@
  * provide a sanity check for timer (based on SYS_CLK_FREQ)
  * @param led_p pointer to led instance
  */
-void timer_check(GpoCore *led_p) {
+void timer_check(GpoCore *led_p) { // passing a class gives access to the data
    int i;
 
    for (i = 0; i < 5; i++) {
@@ -31,16 +31,15 @@ void timer_check(GpoCore *led_p) {
 }
 
 /**
- * blink once per second for 5 times.
- * provide a sanity check for timer (based on SYS_CLK_FREQ)
+ * blink specific LEDs to keep on and off at different rates
  * @param led_p pointer to led instance
  */
-void led_flash(GpoCore *led_p) {
+void led_flash(GpoCore *led_p) { // address the core
    int i;
 
    for (i = 0; i < 5; i++) {
       //led_p->write(0xffff);
-      led_p->write(1 << 2);
+      led_p->write(1 << 2); // can also do led_p->write(1,2)
       sleep_ms(250);
       led_p->write(1 << 4);
       sleep_ms(500);
