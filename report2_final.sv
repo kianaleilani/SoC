@@ -2,8 +2,8 @@
 
 module reaction_timer_game (
     input  logic clk,        
-    input  logic BTNC,       
-    output logic LED,       
+    input  logic BTNC,  // center button     
+    output logic LED,    // for LED[0] only   
     output logic [6:0] SEG,  
     output logic DP,         
     output logic [7:0] AN    
@@ -17,7 +17,7 @@ module reaction_timer_game (
     parameter int PENALTY_DISPLAY_MS = 2000;
     parameter int TIMEOUT_S       = 10;
 
-
+    // To display ALOHA
     localparam logic [3:0] DIGIT_A = 4'd10;
     localparam logic [3:0] DIGIT_L = 4'd11;
     localparam logic [3:0] DIGIT_O = 4'd12;
@@ -29,7 +29,7 @@ module reaction_timer_game (
     logic btn_debounced;
     logic [17:0] debounce_counter;
 
-
+// debouncing
     always_ff @(posedge clk) begin
         btn_sync_0 <= BTNC;
         btn_sync_1 <= btn_sync_0;
@@ -47,14 +47,14 @@ module reaction_timer_game (
         end
     end
 
-    // Edge detect
+    // edge detect
     logic btn_last;
     always_ff @(posedge clk) begin
         btn_last <= btn_debounced;
     end
     wire btn_pressed = btn_debounced & ~btn_last;
 
-
+    // random number 
     logic [15:0] lfsr = 16'hACE1;
     always_ff @(posedge clk) begin
         lfsr <= {lfsr[14:0], lfsr[15] ^ lfsr[13] ^ lfsr[12] ^ lfsr[10]};
@@ -63,6 +63,7 @@ module reaction_timer_game (
     int rand_delay_cycles;
     int delay_counter;
 
+    // states
     typedef enum logic [2:0] {
         IDLE      = 3'b000,
         WAIT_DELAY= 3'b001,
@@ -201,7 +202,7 @@ module reaction_timer_game (
     assign AN = ~(8'b00000001 << current_digit);
     assign DP = (current_digit == 3) ? 1'b0 : 1'b1;
 
-    
+    // decoder
     always_comb begin
         case (digit[current_digit])
             4'd0: SEG = 7'b1000000;
