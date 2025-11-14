@@ -1,0 +1,3 @@
+C:/Users/nllil/Desktop/report4/app_component/build/CMakeFiles/app_component.elf.dir
+C:/Users/nllil/Desktop/report4/app_component/build/CMakeFiles/edit_cache.dir
+C:/Users/nllil/Desktop/report4/app_component/build/CMakeFiles/rebuild_cache.dir

@@ -1,0 +1,225 @@
+22:22:00 INFO  : updated workspace path: C:\Users\nllil\Desktop\report4
+22:22:00 INFO  : Marking the target connection as default Local
+22:22:00 INFO  : Marking the target connection as default Linux Agent
+22:22:00 INFO  : Marking the target connection as default XRTServer
+22:22:00 INFO  : Marking the target connection as default LinuxEmulation
+22:22:00 INFO  : Marking the target connection as default QEMU
+22:22:00 INFO  : cmd.exe, /C, empyro.bat repo -st   C:\Xilinx\2025.1\Vitis\data\embeddedsw
+22:22:00 INFO  : Platform platform creation started.
+22:22:00 INFO  : Using sdt generation script from C:\Xilinx\2025.1\Vitis\vitis-server\scripts\platformutil.tcl
+22:22:00 INFO  : cmd.exe, /C, sdtgen.bat C:\Xilinx\2025.1\Vitis\vitis-server\scripts\platformutil.tcl C:\Users\nllil\Desktop\report4\mcs_top_report4.xsa C:\Users\nllil\Desktop\report4\platform\hw\sdt
+22:22:07 INFO  : [INFO]: Initializing repositories
+22:22:07 INFO  : [INFO]: Successfully set the EmbeddedSW path, refer .repo.yaml for more details.
+22:22:07 INFO  : Successfully created repository data at C:\Users\nllil\Desktop\report4/_ide\.wsdata
+22:22:07 INFO  : cmd.exe, /C, empyro.bat get_template_data -d C:\Users\nllil\AppData\Local\Temp\rigel_lopper_nllil8350503898878950942 -r C:\Users\nllil\Desktop\report4\_ide\.wsdata\.repo.yaml
+22:22:08 INFO  : Embedded Template List generated successfully
+22:22:11 INFO  : -xsa C:\Users\nllil\Desktop\report4\mcs_top_report4.xsa
+22:22:11 INFO  : -dir C:\Users\nllil\Desktop\report4\platform\hw\sdt
+22:22:11 INFO  : -board_dts 
+22:22:11 INFO  : -include_dts 
+22:22:11 INFO  : -repo C:/Xilinx/2025.1/Vitis/data/system-device-tree-xlnx
+22:22:11 INFO  : -zocl disable
+22:22:11 INFO  : INFO: [Hsi 55-2053] elapsed time for repository (C:/Xilinx/2025.1/Vitis/data/embeddedsw) loading 0 seconds
+22:22:11 INFO  : SDT generated successfully
+22:22:11 INFO  : Lopper command for cpu List generation: lopper.bat --enhanced --werror -f -O C:\Users\nllil\Desktop\report4\.rigel_lopper -i lop-cpu-oslist.dts C:\Users\nllil\Desktop\report4\platform\hw\sdt\system-top.dts
+22:22:11 INFO  : cmd.exe, /C, lopper.bat --enhanced --werror -f -O C:\Users\nllil\Desktop\report4\.rigel_lopper -i lop-cpu-oslist.dts C:\Users\nllil\Desktop\report4\platform\hw\sdt\system-top.dts
+22:22:13 INFO  : CPU List generated successfully
+22:22:13 INFO  : SDT generated successfully.
+22:22:13 INFO  : created .gitignore file for the project C:\Users\nllil\Desktop\report4\platform
+22:22:13 INFO  : lopper command to generate BSP :empyro.bat create_bsp -w C:\Users\nllil\Desktop\report4\platform\microblaze_I\standalone_microblaze_I\bsp -p microblaze_I -o standalone -s C:\Users\nllil\Desktop\report4\platform\hw\sdt\system-top.dts -t empty_application -r C:\Users\nllil\Desktop\report4\_ide\.wsdata\.repo.yaml
+22:22:13 INFO  : cmd.exe, /C, empyro.bat create_bsp -w C:\Users\nllil\Desktop\report4\platform\microblaze_I\standalone_microblaze_I\bsp -p microblaze_I -o standalone -s C:\Users\nllil\Desktop\report4\platform\hw\sdt\system-top.dts -t empty_application -r C:\Users\nllil\Desktop\report4\_ide\.wsdata\.repo.yaml
+22:22:53 INFO  : [INFO]: Starting domain creation
+22:22:53 INFO  : [INFO]: Generating Domain-specific DTS for microblaze_I
+22:22:53 INFO  : [INFO]: Generating required metadata from domain specific DT
+22:22:53 INFO  : [INFO]: Successfully created Domain at C:\Users\nllil\Desktop\report4\platform\microblaze_I\standalone_microblaze_I\bsp
+22:22:53 INFO  : Successfully Generated Domain C:\Users\nllil\Desktop\report4\platform\microblaze_I\standalone_microblaze_I\bsp
+22:22:53 INFO  : Domain standalone_microblaze_I added successfully.
+22:22:53 INFO  : Platform creation finished successfully.
+22:22:53 INFO  : Platform Quick Build initiated.
+22:22:53 INFO  : Generating Export directory
+22:22:54 INFO  : Generated platform metadata for creating application(s) based on platform platform.
+22:24:24 INFO  : cmd.exe, /C, empyro.bat validate_bsp -t empty_application -d C:\Users\nllil\Desktop\report4\platform\export\platform\sw\standalone_microblaze_I -r C:\Users\nllil\Desktop\report4\_ide\.wsdata\.repo.yaml
+22:24:27 INFO  : Successfully validated template empty_application
+22:25:06 INFO  : lopper command to create baremetal application :empyro.bat create_app --src_dir C:\Users\nllil\Desktop\report4\app_component\src -t empty_application -d C:\Users\nllil\Desktop\report4\platform\export\platform\sw\standalone_microblaze_I -n app_component -r C:\Users\nllil\Desktop\report4\_ide\.wsdata\.repo.yaml
+22:25:06 INFO  : cmd.exe, /C, empyro.bat validate_bsp -t empty_application -d C:\Users\nllil\Desktop\report4\platform\export\platform\sw\standalone_microblaze_I -r C:\Users\nllil\Desktop\report4\_ide\.wsdata\.repo.yaml
+22:25:07 INFO  : Successfully validated template empty_application
+22:25:07 INFO  : cmd.exe, /C, empyro.bat create_app --src_dir C:\Users\nllil\Desktop\report4\app_component\src -t empty_application -d C:\Users\nllil\Desktop\report4\platform\export\platform\sw\standalone_microblaze_I -n app_component -r C:\Users\nllil\Desktop\report4\_ide\.wsdata\.repo.yaml
+22:25:17 INFO  : [INFO]: Generating Linker script for empty_application
+22:25:17 INFO  : [INFO]: Successfully Created Application sources at C:/Users/nllil/Desktop/report4/app_component/src
+22:25:17 INFO  : Successfully created Application C:\Users\nllil\Desktop\report4\app_component\src
+22:25:17 INFO  : created .gitignore file for the project C:\Users\nllil\Desktop\report4\app_component
+22:25:18 INFO  : The hardware specification used by project 'C:\Users\nllil\Desktop\report4\app_component' is out of sync with the platform. Resource files extracted from the hardware specification will be updated.
+22:25:18 INFO  : The updated bitstream files are copied from platform to folder 'C:\Users\nllil\Desktop\report4\app_component\_ide\bitstream' in project 'C:\Users\nllil\Desktop\report4\app_component'.
+22:27:05 INFO  : BSP build will be initiated for Domain standalone_microblaze_I
+22:27:05 INFO  : Generating BSP for the domain C:\Users\nllil\Desktop\report4\platform\microblaze_I\standalone_microblaze_I\bsp
+22:27:05 INFO  : lopper command to reconfigure BSP :empyro.bat reconfig_bsp -d C:\Users\nllil\Desktop\report4\platform\microblaze_I\standalone_microblaze_I\bsp
+22:27:05 INFO  : cmd.exe, /C, empyro.bat reconfig_bsp -d C:\Users\nllil\Desktop\report4\platform\microblaze_I\standalone_microblaze_I\bsp
+22:27:16 INFO  : Domain reconfigured successfully
+22:27:16 INFO  : Generating BSP for the domain C:\Users\nllil\Desktop\report4\platform\microblaze_I\standalone_microblaze_I\bsp
+22:27:16 INFO  : lopper command to build BSP :empyro.bat build_bsp -d C:\Users\nllil\Desktop\report4\platform\microblaze_I\standalone_microblaze_I\bsp
+22:27:16 INFO  : cmd.exe, /C, empyro.bat build_bsp -d C:\Users\nllil\Desktop\report4\platform\microblaze_I\standalone_microblaze_I\bsp
+22:27:27 INFO  : Domain build successfully
+22:27:27 INFO  : Generating Export directory
+22:27:27 INFO  : Platform Build Finished successfully.
+22:27:27 INFO  : lopper command to retarget baremetal application :empyro.bat retarget_app -s c:\Users\nllil\Desktop\report4\app_component\src -d C:\Users\nllil\Desktop\report4\platform\export\platform\sw\standalone_microblaze_I -b c:\Users\nllil\Desktop\report4\app_component\build
+22:27:27 INFO  : cmd.exe, /C, empyro.bat retarget_app -s c:\Users\nllil\Desktop\report4\app_component\src -d C:\Users\nllil\Desktop\report4\platform\export\platform\sw\standalone_microblaze_I -b c:\Users\nllil\Desktop\report4\app_component\build
+22:27:29 INFO  : [INFO]: Retargeting app
+22:27:29 INFO  : [INFO]: Updating link libraries based on new domain
+22:27:29 INFO  : Successfully retargeted Application c:\Users\nllil\Desktop\report4\app_component\src
+22:27:29 INFO  : cmd.exe, /C, empyro.bat build_app -s c:\Users\nllil\Desktop\report4\app_component\src -b c:\Users\nllil\Desktop\report4\app_component\build
+22:29:27 INFO  : BSP build will be initiated for Domain standalone_microblaze_I
+22:29:27 INFO  : Generating BSP for the domain C:\Users\nllil\Desktop\report4\platform\microblaze_I\standalone_microblaze_I\bsp
+22:29:27 INFO  : lopper command to reconfigure BSP :empyro.bat reconfig_bsp -d C:\Users\nllil\Desktop\report4\platform\microblaze_I\standalone_microblaze_I\bsp
+22:29:27 INFO  : cmd.exe, /C, empyro.bat reconfig_bsp -d C:\Users\nllil\Desktop\report4\platform\microblaze_I\standalone_microblaze_I\bsp
+22:29:39 INFO  : Domain reconfigured successfully
+22:29:39 INFO  : Generating BSP for the domain C:\Users\nllil\Desktop\report4\platform\microblaze_I\standalone_microblaze_I\bsp
+22:29:39 INFO  : lopper command to build BSP :empyro.bat build_bsp -d C:\Users\nllil\Desktop\report4\platform\microblaze_I\standalone_microblaze_I\bsp
+22:29:39 INFO  : cmd.exe, /C, empyro.bat build_bsp -d C:\Users\nllil\Desktop\report4\platform\microblaze_I\standalone_microblaze_I\bsp
+22:30:05 INFO  : Domain build successfully
+22:30:05 INFO  : Generating Export directory
+22:30:05 INFO  : Platform Build Finished successfully.
+22:30:05 INFO  : lopper command to retarget baremetal application :empyro.bat retarget_app -s c:\Users\nllil\Desktop\report4\app_component\src -d C:\Users\nllil\Desktop\report4\platform\export\platform\sw\standalone_microblaze_I -b c:\Users\nllil\Desktop\report4\app_component\build
+22:30:05 INFO  : cmd.exe, /C, empyro.bat retarget_app -s c:\Users\nllil\Desktop\report4\app_component\src -d C:\Users\nllil\Desktop\report4\platform\export\platform\sw\standalone_microblaze_I -b c:\Users\nllil\Desktop\report4\app_component\build
+22:30:07 INFO  : [INFO]: Retargeting app
+22:30:07 INFO  : [INFO]: Updating link libraries based on new domain
+22:30:07 INFO  : [INFO]: Compiler path changed from C:\Xilinx\2025.1\Vitis\gnu\microblaze\nt\bin\mb-gcc-ar.exe to C:\Xilinx\2025.1\Vitis\gnu\microblaze\nt\bin\mb-gcc-ar.exe
+22:30:07 INFO  : C:\Xilinx\2025.1\Vivado\gnu\microblaze\nt\bin\mb-gcc-ar.exe. Clearing build directory.
+22:30:07 INFO  : Successfully retargeted Application c:\Users\nllil\Desktop\report4\app_component\src
+22:30:07 INFO  : cmd.exe, /C, empyro.bat build_app -s c:\Users\nllil\Desktop\report4\app_component\src -b c:\Users\nllil\Desktop\report4\app_component\build
+22:30:24 INFO  : The updated bitstream files are copied from platform to folder 'C:\Users\nllil\Desktop\report4\app_component\_ide\bitstream' in project 'C:\Users\nllil\Desktop\report4\app_component'.
+22:31:02 INFO  : XSDB server has started successfully from frontend.
+22:31:02 INFO  : It has taken  7secs.
+22:31:03 INFO  : Connection to XSDB Server established.
+22:31:03 INFO  : It has taken  1secs.
+22:31:03 INFO  : Done
+22:31:23 INFO  : Bit file 'C:/Users/nllil/Desktop/report4/app_component/_ide/bitstream/download.bit' is generated.
+22:31:49 INFO  : Connected to target on host '127.0.0.1' and port '3121'.
+22:31:49 INFO  : Connected to target on host '127.0.0.1' and port '3121'.
+22:31:51 INFO  : 'targets -set -filter {jtag_cable_name =~ "Digilent Nexys4DDR 210292A4BA38A" && level==0 && jtag_device_ctx=="jsn-Nexys4DDR-210292A4BA38A-13631093-0"}' command is executed.
+22:31:52 INFO  : Device configured successfully with "C:/Users/nllil/Desktop/report4/app_component/_ide/bitstream/download.bit"
+22:35:12 INFO  : BSP build will be initiated for Domain standalone_microblaze_I
+22:35:12 INFO  : Generating BSP for the domain C:\Users\nllil\Desktop\report4\platform\microblaze_I\standalone_microblaze_I\bsp
+22:35:12 INFO  : lopper command to reconfigure BSP :empyro.bat reconfig_bsp -d C:\Users\nllil\Desktop\report4\platform\microblaze_I\standalone_microblaze_I\bsp
+22:35:12 INFO  : cmd.exe, /C, empyro.bat reconfig_bsp -d C:\Users\nllil\Desktop\report4\platform\microblaze_I\standalone_microblaze_I\bsp
+22:35:23 INFO  : Domain reconfigured successfully
+22:35:23 INFO  : Generating BSP for the domain C:\Users\nllil\Desktop\report4\platform\microblaze_I\standalone_microblaze_I\bsp
+22:35:23 INFO  : lopper command to build BSP :empyro.bat build_bsp -d C:\Users\nllil\Desktop\report4\platform\microblaze_I\standalone_microblaze_I\bsp
+22:35:23 INFO  : cmd.exe, /C, empyro.bat build_bsp -d C:\Users\nllil\Desktop\report4\platform\microblaze_I\standalone_microblaze_I\bsp
+22:35:29 INFO  : Domain build successfully
+22:35:29 INFO  : Generating Export directory
+22:35:30 INFO  : Platform Build Finished successfully.
+22:35:30 INFO  : lopper command to retarget baremetal application :empyro.bat retarget_app -s c:\Users\nllil\Desktop\report4\app_component\src -d C:\Users\nllil\Desktop\report4\platform\export\platform\sw\standalone_microblaze_I -b c:\Users\nllil\Desktop\report4\app_component\build
+22:35:30 INFO  : cmd.exe, /C, empyro.bat retarget_app -s c:\Users\nllil\Desktop\report4\app_component\src -d C:\Users\nllil\Desktop\report4\platform\export\platform\sw\standalone_microblaze_I -b c:\Users\nllil\Desktop\report4\app_component\build
+22:35:31 INFO  : [INFO]: Retargeting app
+22:35:31 INFO  : [INFO]: Updating link libraries based on new domain
+22:35:31 INFO  : [INFO]: Compiler path changed from C:\Xilinx\2025.1\Vitis\gnu\microblaze\nt\bin\mb-gcc-ar.exe to C:\Xilinx\2025.1\Vitis\gnu\microblaze\nt\bin\mb-gcc-ar.exe
+22:35:31 INFO  : C:\Xilinx\2025.1\Vivado\gnu\microblaze\nt\bin\mb-gcc-ar.exe. Clearing build directory.
+22:35:31 INFO  : Successfully retargeted Application c:\Users\nllil\Desktop\report4\app_component\src
+22:35:31 INFO  : cmd.exe, /C, empyro.bat build_app -s c:\Users\nllil\Desktop\report4\app_component\src -b c:\Users\nllil\Desktop\report4\app_component\build
+22:35:52 INFO  : The updated bitstream files are copied from platform to folder 'C:\Users\nllil\Desktop\report4\app_component\_ide\bitstream' in project 'C:\Users\nllil\Desktop\report4\app_component'.
+22:36:28 INFO  : Bit file 'C:/Users/nllil/Desktop/report4/app_component/_ide/bitstream/download.bit' is generated.
+22:36:51 INFO  : Connected to target on host '127.0.0.1' and port '3121'.
+22:36:51 INFO  : Connected to target on host '127.0.0.1' and port '3121'.
+22:36:52 INFO  : 'targets -set -filter {jtag_cable_name =~ "Digilent Nexys4DDR 210292A4BA38A" && level==0 && jtag_device_ctx=="jsn-Nexys4DDR-210292A4BA38A-13631093-0"}' command is executed.
+22:36:52 INFO  : Device configured successfully with "C:/Users/nllil/Desktop/report4/app_component/_ide/bitstream/download.bit"
+22:38:20 INFO  : The updated bitstream files are copied from platform to folder 'C:\Users\nllil\Desktop\report4\app_component\_ide\bitstream' in project 'C:\Users\nllil\Desktop\report4\app_component'.
+22:39:13 INFO  : BSP build will be initiated for Domain standalone_microblaze_I
+22:39:13 INFO  : Generating BSP for the domain C:\Users\nllil\Desktop\report4\platform\microblaze_I\standalone_microblaze_I\bsp
+22:39:13 INFO  : lopper command to reconfigure BSP :empyro.bat reconfig_bsp -d C:\Users\nllil\Desktop\report4\platform\microblaze_I\standalone_microblaze_I\bsp
+22:39:13 INFO  : cmd.exe, /C, empyro.bat reconfig_bsp -d C:\Users\nllil\Desktop\report4\platform\microblaze_I\standalone_microblaze_I\bsp
+22:39:27 INFO  : Domain reconfigured successfully
+22:39:27 INFO  : Generating BSP for the domain C:\Users\nllil\Desktop\report4\platform\microblaze_I\standalone_microblaze_I\bsp
+22:39:27 INFO  : lopper command to build BSP :empyro.bat build_bsp -d C:\Users\nllil\Desktop\report4\platform\microblaze_I\standalone_microblaze_I\bsp
+22:39:27 INFO  : cmd.exe, /C, empyro.bat build_bsp -d C:\Users\nllil\Desktop\report4\platform\microblaze_I\standalone_microblaze_I\bsp
+22:39:35 INFO  : Domain build successfully
+22:39:35 INFO  : Generating Export directory
+22:39:35 INFO  : Platform Build Finished successfully.
+22:39:35 INFO  : lopper command to retarget baremetal application :empyro.bat retarget_app -s c:\Users\nllil\Desktop\report4\app_component\src -d C:\Users\nllil\Desktop\report4\platform\export\platform\sw\standalone_microblaze_I -b c:\Users\nllil\Desktop\report4\app_component\build
+22:39:35 INFO  : cmd.exe, /C, empyro.bat retarget_app -s c:\Users\nllil\Desktop\report4\app_component\src -d C:\Users\nllil\Desktop\report4\platform\export\platform\sw\standalone_microblaze_I -b c:\Users\nllil\Desktop\report4\app_component\build
+22:39:37 INFO  : [INFO]: Retargeting app
+22:39:37 INFO  : [INFO]: Updating link libraries based on new domain
+22:39:37 INFO  : [INFO]: Compiler path changed from C:\Xilinx\2025.1\Vitis\gnu\microblaze\nt\bin\mb-gcc-ar.exe to C:\Xilinx\2025.1\Vitis\gnu\microblaze\nt\bin\mb-gcc-ar.exe
+22:39:37 INFO  : C:\Xilinx\2025.1\Vivado\gnu\microblaze\nt\bin\mb-gcc-ar.exe. Clearing build directory.
+22:39:37 INFO  : Successfully retargeted Application c:\Users\nllil\Desktop\report4\app_component\src
+22:39:37 INFO  : cmd.exe, /C, empyro.bat build_app -s c:\Users\nllil\Desktop\report4\app_component\src -b c:\Users\nllil\Desktop\report4\app_component\build
+22:39:53 INFO  : The updated bitstream files are copied from platform to folder 'C:\Users\nllil\Desktop\report4\app_component\_ide\bitstream' in project 'C:\Users\nllil\Desktop\report4\app_component'.
+22:40:35 INFO  : Bit file 'C:/Users/nllil/Desktop/report4/app_component/_ide/bitstream/download.bit' is generated.
+22:40:55 INFO  : Connected to target on host '127.0.0.1' and port '3121'.
+22:40:55 INFO  : Connected to target on host '127.0.0.1' and port '3121'.
+22:40:55 INFO  : 'targets -set -filter {jtag_cable_name =~ "Digilent Nexys4DDR 210292A4BA38A" && level==0 && jtag_device_ctx=="jsn-Nexys4DDR-210292A4BA38A-13631093-0"}' command is executed.
+22:40:55 INFO  : Device configured successfully with "C:/Users/nllil/Desktop/report4/app_component/_ide/bitstream/download.bit"
+22:42:12 INFO  : BSP build will be initiated for Domain standalone_microblaze_I
+22:42:12 INFO  : Generating BSP for the domain C:\Users\nllil\Desktop\report4\platform\microblaze_I\standalone_microblaze_I\bsp
+22:42:12 INFO  : lopper command to reconfigure BSP :empyro.bat reconfig_bsp -d C:\Users\nllil\Desktop\report4\platform\microblaze_I\standalone_microblaze_I\bsp
+22:42:12 INFO  : cmd.exe, /C, empyro.bat reconfig_bsp -d C:\Users\nllil\Desktop\report4\platform\microblaze_I\standalone_microblaze_I\bsp
+22:42:23 INFO  : Domain reconfigured successfully
+22:42:23 INFO  : Generating BSP for the domain C:\Users\nllil\Desktop\report4\platform\microblaze_I\standalone_microblaze_I\bsp
+22:42:23 INFO  : lopper command to build BSP :empyro.bat build_bsp -d C:\Users\nllil\Desktop\report4\platform\microblaze_I\standalone_microblaze_I\bsp
+22:42:23 INFO  : cmd.exe, /C, empyro.bat build_bsp -d C:\Users\nllil\Desktop\report4\platform\microblaze_I\standalone_microblaze_I\bsp
+22:42:29 INFO  : Domain build successfully
+22:42:29 INFO  : Generating Export directory
+22:42:29 INFO  : Platform Build Finished successfully.
+22:42:30 INFO  : lopper command to retarget baremetal application :empyro.bat retarget_app -s c:\Users\nllil\Desktop\report4\app_component\src -d C:\Users\nllil\Desktop\report4\platform\export\platform\sw\standalone_microblaze_I -b c:\Users\nllil\Desktop\report4\app_component\build
+22:42:30 INFO  : cmd.exe, /C, empyro.bat retarget_app -s c:\Users\nllil\Desktop\report4\app_component\src -d C:\Users\nllil\Desktop\report4\platform\export\platform\sw\standalone_microblaze_I -b c:\Users\nllil\Desktop\report4\app_component\build
+22:42:31 INFO  : [INFO]: Retargeting app
+22:42:31 INFO  : [INFO]: Updating link libraries based on new domain
+22:42:31 INFO  : [INFO]: Compiler path changed from C:\Xilinx\2025.1\Vitis\gnu\microblaze\nt\bin\mb-gcc-ar.exe to C:\Xilinx\2025.1\Vitis\gnu\microblaze\nt\bin\mb-gcc-ar.exe
+22:42:31 INFO  : C:\Xilinx\2025.1\Vivado\gnu\microblaze\nt\bin\mb-gcc-ar.exe. Clearing build directory.
+22:42:31 INFO  : Successfully retargeted Application c:\Users\nllil\Desktop\report4\app_component\src
+22:42:31 INFO  : cmd.exe, /C, empyro.bat build_app -s c:\Users\nllil\Desktop\report4\app_component\src -b c:\Users\nllil\Desktop\report4\app_component\build
+22:43:06 INFO  : The updated bitstream files are copied from platform to folder 'C:\Users\nllil\Desktop\report4\app_component\_ide\bitstream' in project 'C:\Users\nllil\Desktop\report4\app_component'.
+22:43:42 INFO  : Bit file 'C:/Users/nllil/Desktop/report4/app_component/_ide/bitstream/download.bit' is generated.
+22:44:02 INFO  : Connected to target on host '127.0.0.1' and port '3121'.
+22:44:02 INFO  : Connected to target on host '127.0.0.1' and port '3121'.
+22:44:02 INFO  : 'targets -set -filter {jtag_cable_name =~ "Digilent Nexys4DDR 210292A4BA38A" && level==0 && jtag_device_ctx=="jsn-Nexys4DDR-210292A4BA38A-13631093-0"}' command is executed.
+22:44:03 INFO  : Device configured successfully with "C:/Users/nllil/Desktop/report4/app_component/_ide/bitstream/download.bit"
+22:50:03 INFO  : BSP build will be initiated for Domain standalone_microblaze_I
+22:50:03 INFO  : Generating BSP for the domain C:\Users\nllil\Desktop\report4\platform\microblaze_I\standalone_microblaze_I\bsp
+22:50:03 INFO  : lopper command to reconfigure BSP :empyro.bat reconfig_bsp -d C:\Users\nllil\Desktop\report4\platform\microblaze_I\standalone_microblaze_I\bsp
+22:50:03 INFO  : cmd.exe, /C, empyro.bat reconfig_bsp -d C:\Users\nllil\Desktop\report4\platform\microblaze_I\standalone_microblaze_I\bsp
+22:50:16 INFO  : Domain reconfigured successfully
+22:50:16 INFO  : Generating BSP for the domain C:\Users\nllil\Desktop\report4\platform\microblaze_I\standalone_microblaze_I\bsp
+22:50:16 INFO  : lopper command to build BSP :empyro.bat build_bsp -d C:\Users\nllil\Desktop\report4\platform\microblaze_I\standalone_microblaze_I\bsp
+22:50:16 INFO  : cmd.exe, /C, empyro.bat build_bsp -d C:\Users\nllil\Desktop\report4\platform\microblaze_I\standalone_microblaze_I\bsp
+22:50:22 INFO  : Domain build successfully
+22:50:22 INFO  : Generating Export directory
+22:50:23 INFO  : Platform Build Finished successfully.
+22:50:23 INFO  : lopper command to retarget baremetal application :empyro.bat retarget_app -s c:\Users\nllil\Desktop\report4\app_component\src -d C:\Users\nllil\Desktop\report4\platform\export\platform\sw\standalone_microblaze_I -b c:\Users\nllil\Desktop\report4\app_component\build
+22:50:23 INFO  : cmd.exe, /C, empyro.bat retarget_app -s c:\Users\nllil\Desktop\report4\app_component\src -d C:\Users\nllil\Desktop\report4\platform\export\platform\sw\standalone_microblaze_I -b c:\Users\nllil\Desktop\report4\app_component\build
+22:50:25 INFO  : [INFO]: Retargeting app
+22:50:25 INFO  : [INFO]: Updating link libraries based on new domain
+22:50:25 INFO  : [INFO]: Compiler path changed from C:\Xilinx\2025.1\Vitis\gnu\microblaze\nt\bin\mb-gcc-ar.exe to C:\Xilinx\2025.1\Vitis\gnu\microblaze\nt\bin\mb-gcc-ar.exe
+22:50:25 INFO  : C:\Xilinx\2025.1\Vivado\gnu\microblaze\nt\bin\mb-gcc-ar.exe. Clearing build directory.
+22:50:25 INFO  : Successfully retargeted Application c:\Users\nllil\Desktop\report4\app_component\src
+22:50:25 INFO  : cmd.exe, /C, empyro.bat build_app -s c:\Users\nllil\Desktop\report4\app_component\src -b c:\Users\nllil\Desktop\report4\app_component\build
+22:50:33 ERROR : app_component build failed. 
+22:56:17 INFO  : BSP build will be initiated for Domain standalone_microblaze_I
+22:56:17 INFO  : Generating BSP for the domain C:\Users\nllil\Desktop\report4\platform\microblaze_I\standalone_microblaze_I\bsp
+22:56:17 INFO  : lopper command to reconfigure BSP :empyro.bat reconfig_bsp -d C:\Users\nllil\Desktop\report4\platform\microblaze_I\standalone_microblaze_I\bsp
+22:56:17 INFO  : cmd.exe, /C, empyro.bat reconfig_bsp -d C:\Users\nllil\Desktop\report4\platform\microblaze_I\standalone_microblaze_I\bsp
+22:56:28 INFO  : Domain reconfigured successfully
+22:56:28 INFO  : Generating BSP for the domain C:\Users\nllil\Desktop\report4\platform\microblaze_I\standalone_microblaze_I\bsp
+22:56:28 INFO  : lopper command to build BSP :empyro.bat build_bsp -d C:\Users\nllil\Desktop\report4\platform\microblaze_I\standalone_microblaze_I\bsp
+22:56:28 INFO  : cmd.exe, /C, empyro.bat build_bsp -d C:\Users\nllil\Desktop\report4\platform\microblaze_I\standalone_microblaze_I\bsp
+22:56:35 INFO  : Domain build successfully
+22:56:35 INFO  : Generating Export directory
+22:56:35 INFO  : Platform Build Finished successfully.
+22:56:35 INFO  : lopper command to retarget baremetal application :empyro.bat retarget_app -s c:\Users\nllil\Desktop\report4\app_component\src -d C:\Users\nllil\Desktop\report4\platform\export\platform\sw\standalone_microblaze_I -b c:\Users\nllil\Desktop\report4\app_component\build
+22:56:35 INFO  : cmd.exe, /C, empyro.bat retarget_app -s c:\Users\nllil\Desktop\report4\app_component\src -d C:\Users\nllil\Desktop\report4\platform\export\platform\sw\standalone_microblaze_I -b c:\Users\nllil\Desktop\report4\app_component\build
+22:56:37 INFO  : [INFO]: Retargeting app
+22:56:37 INFO  : [INFO]: Updating link libraries based on new domain
+22:56:37 INFO  : [INFO]: Compiler path changed from C:\Xilinx\2025.1\Vitis\gnu\microblaze\nt\bin\mb-gcc-ar.exe to C:\Xilinx\2025.1\Vitis\gnu\microblaze\nt\bin\mb-gcc-ar.exe
+22:56:37 INFO  : C:\Xilinx\2025.1\Vivado\gnu\microblaze\nt\bin\mb-gcc-ar.exe. Clearing build directory.
+22:56:37 INFO  : Successfully retargeted Application c:\Users\nllil\Desktop\report4\app_component\src
+22:56:37 INFO  : cmd.exe, /C, empyro.bat build_app -s c:\Users\nllil\Desktop\report4\app_component\src -b c:\Users\nllil\Desktop\report4\app_component\build
+22:57:04 INFO  : The updated bitstream files are copied from platform to folder 'C:\Users\nllil\Desktop\report4\app_component\_ide\bitstream' in project 'C:\Users\nllil\Desktop\report4\app_component'.
+22:57:42 INFO  : Bit file 'C:/Users/nllil/Desktop/report4/app_component/_ide/bitstream/download.bit' is generated.
+22:58:26 INFO  : Connected to target on host '127.0.0.1' and port '3121'.
+22:58:26 INFO  : Connected to target on host '127.0.0.1' and port '3121'.
+22:58:26 INFO  : 'targets -set -filter {jtag_cable_name =~ "Digilent Nexys4DDR 210292A4BA38A" && level==0 && jtag_device_ctx=="jsn-Nexys4DDR-210292A4BA38A-13631093-0"}' command is executed.
+22:58:27 INFO  : Device configured successfully with "C:/Users/nllil/Desktop/report4/app_component/_ide/bitstream/download.bit"
+23:11:24 INFO  : connection terminated
+23:11:24 INFO  : connection terminated
+23:11:24 INFO  : scheduling shutdown timer for 2 seconds ...
+23:11:26 INFO  : Terminating Vitis C++ Server
+23:11:27 INFO  : Vitis C++ Server terminated

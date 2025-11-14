@@ -1,0 +1,26 @@
+Compiling the C compiler identification source file "CMakeCCompilerId.c" failed.
+Compiler: C:/Xilinx/2025.1/Vitis/gnu/microblaze/nt/bin/mb-gcc.exe 
+Build flags: ;;-mlittle-endian;-mno-xl-reorder;-mxl-soft-mul;-mcpu=v11.0;-DSDT;;-MMD;-MP;-specs=C:/Users/nllil/Desktop/report4/platform/export/platform/sw/standalone_microblaze_I/Xilinx.spec;-IC:/Users/nllil/Desktop/report4/platform/export/platform/sw/standalone_microblaze_I/include
+Id flags:  
+
+The output was:
+1
+C:/Xilinx/2025.1/gnu/microblaze/nt/x86_64-oesdk-mingw32/usr/bin/microblaze-xilinx-elf/../../libexec/microblaze-xilinx-elf/gcc/microblaze-xilinx-elf/13.3.0/ld.exe: cannot find -lxil: No such file or directory
+collect2.exe: error: ld returned 1 exit status
+
+
+The C compiler identification could not be found in "C:/Users/nllil/Desktop/report4/app_component/build/CMakeFiles/3.24.2/CompilerIdC/CMakeCCompilerId.d"
+
+Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" failed.
+Compiler: C:/Xilinx/2025.1/Vitis/gnu/microblaze/nt/bin/mb-g++.exe 
+Build flags: ;;-mlittle-endian;-mno-xl-reorder;-mxl-soft-mul;-mcpu=v11.0;-DSDT;;-MMD;-MP;-specs=C:/Users/nllil/Desktop/report4/platform/export/platform/sw/standalone_microblaze_I/Xilinx.spec;-IC:/Users/nllil/Desktop/report4/platform/export/platform/sw/standalone_microblaze_I/include
+Id flags:  
+
+The output was:
+1
+C:/Xilinx/2025.1/gnu/microblaze/nt/x86_64-oesdk-mingw32/usr/bin/microblaze-xilinx-elf/../../libexec/microblaze-xilinx-elf/gcc/microblaze-xilinx-elf/13.3.0/ld.exe: cannot find -lxil: No such file or directory
+collect2.exe: error: ld returned 1 exit status
+
+
+The CXX compiler identification could not be found in "C:/Users/nllil/Desktop/report4/app_component/build/CMakeFiles/3.24.2/CompilerIdCXX/CMakeCXXCompilerId.d"
+
