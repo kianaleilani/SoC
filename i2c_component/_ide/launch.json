@@ -1,0 +1,45 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "tcf-debug",
+      "request": "launch",
+      "name": "i2c_component_app_hw_1",
+      "debugType": "baremetal-fpga",
+      "attachToRunningTargetOptions": {
+        "targetSetupMode": "standalone",
+        "executeScript": true,
+        "scriptPath": ""
+      },
+      "autoAttachProcessChildren": false,
+      "target": {
+        "targetConnectionId": "Local",
+        "peersIniPath": "../../_ide/.peers.ini",
+        "context": "fpga"
+      },
+      "pathMap": [],
+      "targetSetup": {
+        "resetSystem": true,
+        "programDevice": true,
+        "partialBitstream": false,
+        "skipRevisionCheck": false,
+        "device": {
+          "plDevice": "Auto Detect",
+          "psDevice": "Auto Detect"
+        },
+        "bitstreamFile": "${workspaceFolder}\\i2c_component\\_ide\\bitstream\\mcs_top_vanilla_i2c.bit",
+        "downloadElf": [
+          {
+            "core": "microblaze_I",
+            "resetProcessor": true,
+            "elfFile": "${workspaceFolder}\\i2c_component\\build\\i2c_component.elf",
+            "stopAtEntry": false,
+            "isSelfRelocatingApp": false,
+            "relativeAddress": ""
+          }
+        ]
+      },
+      "internalConsoleOptions": "openOnSessionStart"
+    }
+  ]
+}

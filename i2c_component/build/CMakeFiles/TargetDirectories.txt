@@ -1,0 +1,3 @@
+C:/Users/nllil/Desktop/vanilla/i2c_component/build/CMakeFiles/i2c_component.elf.dir
+C:/Users/nllil/Desktop/vanilla/i2c_component/build/CMakeFiles/edit_cache.dir
+C:/Users/nllil/Desktop/vanilla/i2c_component/build/CMakeFiles/rebuild_cache.dir
