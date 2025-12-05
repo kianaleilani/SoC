@@ -148,12 +148,8 @@ void test_temp_rgb(I2cCore *i2c, PwmCore *rgb)
 
    const uint8_t DEV_ADDR = 0x4b;
    uint8_t wbytes[2], bytes[2];
-   //int ack;
    uint16_t tmp;
    float tmpC;
-
-   // read adt7420 id register to verify device existence
-   // ack = adt7420_p->read_dev_reg_byte(DEV_ADDR, 0x0b, &id);
 
    wbytes[0] = 0x0b;
    i2c->write_transaction(DEV_ADDR, wbytes, 1, 1);
@@ -161,9 +157,7 @@ void test_temp_rgb(I2cCore *i2c, PwmCore *rgb)
    uart.disp("read ADT7420 id (should be 0xcb): ");
    uart.disp(bytes[0], 16);
    uart.disp("\n\r");
-   //debug("ADT check ack/id: ", ack, bytes[0]);
-   // read 2 bytes
-   //ack = adt7420_p->read_dev_reg_bytes(DEV_ADDR, 0x0, bytes, 2);
+   
    wbytes[0] = 0x00;
    i2c->write_transaction(DEV_ADDR, wbytes, 1, 1);
    i2c->read_transaction(DEV_ADDR, bytes, 2, 0);
@@ -182,10 +176,7 @@ void test_temp_rgb(I2cCore *i2c, PwmCore *rgb)
    uart.disp("temperature (C): ");
    uart.disp(tmpC);
    uart.disp("\n\r");
-   uart.disp(tmp);
-   uart.disp("\n\r");
-
-
+   
    // led
    if (tmpC < 36.000) {
       // cold
